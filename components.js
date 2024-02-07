@@ -1,1 +1,4 @@
-console.log('1');
+if (!document.body.dataset.style) {
+    document.body.dataset.style = 'loaded";
+    console.log('pop');
+}
