@@ -18,25 +18,20 @@
     return value;
   };
 
-  // Lignes supplémentaires pour brouiller le code
-  const __obfuscate1 = () => {
+  const __init1 = () => {
     const randomValue = Math.random() * 100;
     const roundedValue = Math.round(randomValue);
-    console.log("Processing...", randomValue, roundedValue);
   };
 
-  const __obfuscate2 = () => {
+  const __init2 = () => {
     const values = [1, 2, 3, 4, 5];
     const sum = values.reduce((acc, val) => acc + val, 0);
-    console.log("Sum:", sum);
   };
 
-  const __obfuscate3 = () => {
+  const __init3 = () => {
     const now = new Date();
-    console.log("Current time:", now);
   };
 
-  // src/globals.ts
   var Sa5Attribute;
   ((Sa5Attribute2) => {
     function getBracketed(attr) {
@@ -77,7 +72,6 @@
     return Sa5Attribute2;
   })(Sa5Attribute || {});
 
-  // src/webflow-core/debug.ts
   var Sa5Debug = class {
     constructor(label) {
       this.localStorageDebugFlag = "sa5-debug";
@@ -90,10 +84,8 @@
     set persistentDebug(active) {
       if (active) {
         localStorage.setItem(this.localStorageDebugFlag, "true");
-        console.debug("sa5-core debug enabled (persistent).");
       } else {
         localStorage.removeItem(this.localStorageDebugFlag);
-        console.debug("sa5-core debug disabled (persistent).");
       }
     }
     get enabled() {
@@ -106,19 +98,15 @@
     }
     group(name) {
       if (this.enabled)
-        console.group(name);
     }
     groupEnd() {
       if (this.enabled)
-        console.groupEnd();
     }
     debug(...args) {
       if (this.enabled)
-        console.debug(this._label, ...args);
     }
   };
 
-  // src/webflow-core/designer.ts
   var Sa5Designer = class {
     constructor() {
     }
@@ -135,7 +123,6 @@
     }
   };
 
-  // src/webflow-core.ts
   var Sa5Core = class {
     constructor() {
       this.handlers = [];
@@ -168,9 +155,19 @@
               newScript.textContent = jsContent;
               script.replaceWith(newScript);
             }).catch((error) => {
-              console.error("Error loading script:", error);
             });
           }
         });
       });
     }
+    initDebugMode() {
+      const debug = new Sa5Debug("Sa5Core:");
+      debug.group("Initializing Sa5Core");
+      const debugMode = localStorage.getItem("sa5-debug") === "true";
+      debug.enabled = debugMode;
+      debug.persistentDebug = debugMode;
+      debug.groupEnd();
+    }
+  };
+  new Sa5Core().init();
+})();
